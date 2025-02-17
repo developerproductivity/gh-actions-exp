@@ -12,46 +12,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  # ... other jobs here
 
-  wait-for-external-status:
+  wait-for-status:
     runs-on: ubuntu-latest
-    needs: [build, test]  # list all your previous jobs
-    if: always()  # run even if previous jobs failed (adjust as needed)
+    needs: [build]  # Adjust as needed
+    if: always()   # Optionally run even if previous jobs failed
     steps:
-      - name: Wait for external status "ci/prow/e2e"
-        env:
-          DESIRED_CONTEXT: "ci/prow/e2e"
-          MAX_RETRIES: 30
-          RETRY_DELAY: 10
-          COMMIT_SHA: ${{ github.sha }}
-          REPO: ${{ github.repository }}
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          i=0
-          statusFound=false
-          while [ $i -lt $MAX_RETRIES ]; do
-            echo "Checking statuses for commit $COMMIT_SHA (attempt $((i+1))/$MAX_RETRIES)..."
-            RESPONSE=$(curl -s -H "Accept: application/vnd.github.v3+json" \
-              -H "Authorization: token $TOKEN" \
-              "https://api.github.com/repos/$REPO/commits/$COMMIT_SHA/statuses")
-            # Use jq to look for our desired context and get its state
-            STATE=$(echo "$RESPONSE" | jq -r --arg context "$DESIRED_CONTEXT" '.[] | select(.context==$context) | .state' )
-            if [ -n "$STATE" ] && [ "$STATE" != "pending" ]; then
-              echo "Found status context '$DESIRED_CONTEXT' with state: $STATE"
-              statusFound=true
-              break
-            else
-              echo "Status context '$DESIRED_CONTEXT' not found or still pending. Waiting..."
-            fi
-            i=$((i+1))
-            sleep $RETRY_DELAY
-          done
+      - name: Wait for external status
+        uses: developerproductivity/data-ingestion/osci@v1
+        with:
+          desired_context: "ci/prow/e2e"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_retries: 30
+          retry_delay: 10
 
-          if [ "$statusFound" = false ]; then
-            echo "Timeout waiting for status context '$DESIRED_CONTEXT'"
-            exit 1
-          fi
-
-      - name: Proceed with final steps
-        run: echo "All statuses are now complete. Continuing with the workflow..."
+      - name: Display final status
+        run: echo "External status final state: ${{ steps.wait-for-status.outputs.final_state }}"
