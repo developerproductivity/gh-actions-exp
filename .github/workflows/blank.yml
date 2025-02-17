@@ -51,7 +51,7 @@ jobs:
             // Use the PR head commit SHA
             const sha = context.payload.pull_request.head.sha;
             // Fetch check runs for this commit, filtering by check name
-            const { data } = await github.checks.listForRef({
+            const { data } = await github.rest.checks.listForRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: sha,
