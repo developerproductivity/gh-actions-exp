@@ -50,17 +50,17 @@ jobs:
             core.info(context.payload.pull_request.head);
             // Use the PR head commit SHA
             const sha = context.payload.pull_request.head.sha;
-            const { data } = await github.rest.checks.listForRef({
+            const { data1 } = await github.rest.checks.listForRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: sha
             });
             
-            if (data.total_count === 0) {
+            if (data1.total_count === 0) {
               core.info("No check runs found for this commit.");
             } else {
               core.info("Check runs for this commit:");
-              data.check_runs.forEach(run => {
+              data1.check_runs.forEach(run => {
                 core.info(`- ${run.name} (ID: ${run.id})`);
               });
             }
