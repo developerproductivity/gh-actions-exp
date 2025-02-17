@@ -21,7 +21,7 @@ jobs:
         with:
           desired_context: "try"
           token: ${{ secrets.GITHUB_TOKEN }}
-
+          max_retries: 5
       - name: Display final status
         env:
           FINAL_STATE: ${{ steps['wait-for-status'].outputs.final_state }}
