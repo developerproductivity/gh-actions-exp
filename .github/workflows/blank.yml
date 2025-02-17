@@ -55,7 +55,7 @@ jobs:
               repo: context.repo.repo,
               ref: sha
             });
-            
+            console.log("Full API response:", data1);
             if (data1.total_count === 0) {
               core.info("No check runs found for this commit.");
             } else {
