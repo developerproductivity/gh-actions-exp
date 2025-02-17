@@ -35,7 +35,7 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Run another multi-line script
-        id: ci/prow/e2e
+        id: "ci/prow/e2e"
         run: |
           echo Add more actions to build,
           echo "test, and deploy your project(s)."
