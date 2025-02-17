@@ -40,6 +40,7 @@ jobs:
         run: |
           echo Add more actions to build,
           echo test, and deploy your project(s).
+
       - name: Get "ci/prow/e2e" details link
         id: get-check
         uses: actions/github-script@v6
