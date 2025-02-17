@@ -15,8 +15,6 @@ jobs:
 
   wait-for-status:
     runs-on: ubuntu-latest
-    needs: [build]  # Adjust as needed
-    if: always()   # Optionally run even if previous jobs failed
     steps:
       - name: Wait for external status
         uses: developerproductivity/data-ingestion/osci@v1
