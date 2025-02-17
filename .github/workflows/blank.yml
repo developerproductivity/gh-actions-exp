@@ -71,3 +71,25 @@ jobs:
               core.setOutput('details_link', checkRun.details_url);
               core.info(`Found details URL: ${checkRun.details_url}`);
             }
+
+      # Get details link
+      - name: Get all details links
+        id: get-check2
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const sha = context.payload.pull_request.head.sha;
+            const { data } = await github.rest.checks.listForRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: sha
+            });
+            
+            if (data.total_count === 0) {
+              core.info("No check runs found for this commit.");
+            } else {
+              core.info("Check runs for this commit:");
+              data.check_runs.forEach(run => {
+                core.info(`- ${run.name} (ID: ${run.id})`);
+              });
+            }
