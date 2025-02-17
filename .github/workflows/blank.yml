@@ -39,4 +39,4 @@ jobs:
       - name: Run another multi-line script
         run: |
           echo Add more actions to build,
-          echo test, and deploy your project(s).
+          echo "test, and deploy your project(s)."
