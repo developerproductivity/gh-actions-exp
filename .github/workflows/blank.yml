@@ -35,7 +35,6 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Run another multi-line script
-        id: "ci/prow/e2e"
         run: |
           echo Add more actions to build,
           echo "test, and deploy your project(s)."
@@ -56,11 +55,11 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: sha,
-              check_name: 'ci/prow/e2e'
+              check_name: 'Run another multi-line script'
             });
             
             if (data.total_count === 0) {
-              core.info('No check runs found with name "ci/prow/e2e"');
+              core.info('No check runs found with name "Run another multi-line script"');
             } else {
               // Assume the first matching check run is the one we want
               const checkRun = data.check_runs[0];
