@@ -23,4 +23,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Display final status
-        run: echo "External status final state: ${{ steps['wait-for-status'].outputs.final_state }}"
+        env:
+          FINAL_STATE: ${{ steps['wait-for-status'].outputs.final_state }}
+        run: echo "External status final state: $FINAL_STATE"
