@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Wait for external status
-        uses: developerproductivity/data-ingestion/osci@v1
+        uses: developerproductivity/data-ingestion/osci@main
         with:
           desired_context: "try"
           token: ${{ secrets.GITHUB_TOKEN }}
