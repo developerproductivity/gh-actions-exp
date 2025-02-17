@@ -40,3 +40,26 @@ jobs:
         run: |
           echo Add more actions to build,
           echo test, and deploy your project(s).
+      - name: Get "ci/prow/e2e" details link
+        id: get-check
+        uses: actions/github-script@v6
+        with:
+          script: |
+            // Use the PR head commit SHA
+            const sha = context.payload.pull_request.head.sha;
+            // Fetch check runs for this commit, filtering by check name
+            const { data } = await github.checks.listForRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: sha,
+              check_name: 'ci/prow/e2e'
+            });
+            
+            if (data.total_count === 0) {
+              core.info('No check runs found with name "ci/prow/e2e"');
+            } else {
+              // Assume the first matching check run is the one we want
+              const checkRun = data.check_runs[0];
+              core.setOutput('details_link', checkRun.details_url);
+              core.info(`Found details URL: ${checkRun.details_url}`);
+            }
