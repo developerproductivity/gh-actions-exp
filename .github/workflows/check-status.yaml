@@ -21,8 +21,6 @@ jobs:
         with:
           desired_context: "try"
           token: ${{ secrets.GITHUB_TOKEN }}
-          max_retries: 30
-          retry_delay: 10
 
       - name: Display final status
-        run: echo "External status final state: ${{ steps.wait-for-status.outputs.final_state }}"
+        run: echo "External status final state: ${{ steps['wait-for-status'].outputs.final_state }}"
