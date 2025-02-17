@@ -21,7 +21,7 @@ jobs:
       - name: Wait for external status
         uses: developerproductivity/data-ingestion/osci@v1
         with:
-          desired_context: "ci/prow/e2e"
+          desired_context: "try"
           token: ${{ secrets.GITHUB_TOKEN }}
           max_retries: 30
           retry_delay: 10
