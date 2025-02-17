@@ -60,7 +60,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: sha,
-              check_name: 'simple'
+              check_name: 'try'
             });
             
             if (data.total_count === 0) {
