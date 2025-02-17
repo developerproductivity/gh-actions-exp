@@ -39,6 +39,11 @@ jobs:
           echo Add more actions to build,
           echo "test, and deploy your project(s)."
 
+      - name: simple
+        run: |
+          echo Add more actions to build,
+          echo "test, and deploy your project(s)."
+
       # Get details link
       - name: Get "ci/prow/e2e" details link
         id: get-check
@@ -50,27 +55,12 @@ jobs:
             core.info(context.payload.pull_request.head);
             // Use the PR head commit SHA
             const sha = context.payload.pull_request.head.sha;
-            const { data1 } = await github.rest.checks.listForRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: sha
-            });
-            console.log("Full API response:", data1);
-            if (data1.total_count === 0) {
-              core.info("No check runs found for this commit.");
-            } else {
-              core.info("Check runs for this commit:");
-              data1.check_runs.forEach(run => {
-                core.info(`- ${run.name} (ID: ${run.id})`);
-              });
-            }
-            const sha1 = context.payload.pull_request.head.sha;
             // Fetch check runs for this commit, filtering by check name
             const { data } = await github.rest.checks.listForRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: sha1,
-              check_name: 'Run another multi-line script'
+              ref: sha,
+              check_name: 'simple'
             });
             
             if (data.total_count === 0) {
