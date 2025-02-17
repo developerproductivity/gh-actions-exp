@@ -25,4 +25,5 @@ jobs:
       - name: Display final status
         env:
           FINAL_STATE: ${{ steps['wait-for-status'].outputs.final_state }}
-        run: echo "External status final state: $FINAL_STATE"
+        run: |
+          echo "External status final state: $FINAL_STATE"
