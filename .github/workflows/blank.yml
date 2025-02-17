@@ -64,11 +64,12 @@ jobs:
                 core.info(`- ${run.name} (ID: ${run.id})`);
               });
             }
+            const sha1 = context.payload.pull_request.head.sha;
             // Fetch check runs for this commit, filtering by check name
             const { data } = await github.rest.checks.listForRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: sha,
+              ref: sha1,
               check_name: 'Run another multi-line script'
             });
             
