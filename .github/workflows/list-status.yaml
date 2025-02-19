@@ -22,6 +22,11 @@ jobs:
           curl -s -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             "https://api.github.com/repos/$REPO/commits/$COMMIT_SHA/statuses" | jq .
+
+
+          curl -s -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/$REPO/commits/$COMMIT_SHA/check-runs" | jq .
           
       - name: List combined status (legacy statuses summary)
         run: |
