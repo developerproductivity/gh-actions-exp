@@ -19,7 +19,7 @@ jobs:
       - name: Wait for external status
         uses: developerproductivity/data-ingestion/osci@main
         with:
-          desired_context: 'codecov/patch'
+          desired_context: codecov
           token: ${{ secrets.GITHUB_TOKEN }}
           max_retries: 5
       - name: Display final status
