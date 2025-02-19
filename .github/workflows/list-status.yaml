@@ -23,14 +23,14 @@ jobs:
           REPO="${{ github.repository }}"
           echo "Fetching legacy statuses for commit: $COMMIT_SHA in $REPO"
           
-          curl -s -H "Accept: application/vnd.github.v3+json" \
+          curl -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/$REPO/commits/$COMMIT_SHA/statuses" | jq .
+            "https://api.github.com/repos/$REPO/commits/$COMMIT_SHA/statuses" 
 
 
-          curl -s -H "Accept: application/vnd.github.v3+json" \
+          curl -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/$REPO/commits/$COMMIT_SHA/check-runs" | jq .
+            "https://api.github.com/repos/$REPO/commits/$COMMIT_SHA/check-runs" 
           
       - name: List combined status (legacy statuses summary)
         run: |
