@@ -2,4 +2,4 @@
 
 An experimental repo to learn GitHub Actions behaviour.
 
-Test 44
+Test 45
