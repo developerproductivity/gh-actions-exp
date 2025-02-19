@@ -12,9 +12,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Test Output
+        run: |
+          echo "Hello"
+
       - name: List legacy commit statuses (plural endpoint)
         run: |
-          sleep 3m
+          sleep 2m
           COMMIT_SHA="${{ github.sha }}"
           REPO="${{ github.repository }}"
           echo "Fetching legacy statuses for commit: $COMMIT_SHA in $REPO"
