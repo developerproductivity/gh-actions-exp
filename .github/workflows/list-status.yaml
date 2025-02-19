@@ -18,7 +18,7 @@ jobs:
 
       - name: List legacy commit statuses (plural endpoint)
         run: |
-          sleep 2m
+          sleep 1m
           COMMIT_SHA="${{ github.sha }}"
           REPO="${{ github.repository }}"
           echo "Fetching legacy statuses for commit: $COMMIT_SHA in $REPO"
