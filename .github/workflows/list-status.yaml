@@ -1,0 +1,27 @@
+name: List All Statuses
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  list-statuses:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: List legacy commit statuses (plural endpoint)
+        run: |
+          COMMIT_SHA="${{ github.sha }}"
+          REPO="${{ github.repository }}"
+          echo "Fetching legacy statuses for commit: $COMMIT_SHA in $REPO"
+          
+          curl -s -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/$REPO/commits/$COMMIT_SHA/statuses" | jq .
+          
+      - name: List combined status (legacy statuses summary)
+        run: |
+          COMMIT_SHA="${{ github.sha }}"
