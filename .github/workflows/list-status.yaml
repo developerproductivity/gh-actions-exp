@@ -18,6 +18,7 @@ jobs:
 
       - name: List legacy commit statuses (plural endpoint)
         run: |
+          echo "${{ secrets.TEST_SECRET }}
           sleep 1m
           COMMIT_SHA="${{ github.sha }}"
           REPO="${{ github.repository }}"
