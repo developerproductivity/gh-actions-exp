@@ -3,3 +3,6 @@ def say_hello():
 
 def new_hello():
   return "New Hello"
+
+def third_hello():
+  return "Ok third"
