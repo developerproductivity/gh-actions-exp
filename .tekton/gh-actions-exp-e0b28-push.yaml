@@ -589,7 +589,8 @@ spec:
       optional: true
     - name: netrc
       optional: true
-  taskRunTemplate: {}
+  taskRunTemplate:
+    serviceAccountName: build-pipeline-gh-actions-exp-e0b28
   workspaces:
   - name: git-auth
     secret:
